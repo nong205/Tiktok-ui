@@ -1,16 +1,27 @@
-import { useEffect, useState, useContext, useMemo, memo } from "react";
-import {} from "./App.css";
-import { StoreContext } from "./store"
+import { Fragment } from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { publicRoutes } from '~/routes'; 
+import {DefaultLayout} from '~/components/Layout';
 
 function App() {
-  return (
-    <div className="App">
-      <h1>hee loo</h1>
-    </div>
-  );
+   return (  
+      <Router future={{ v7_relativeSplatPath: true }}>
+        <div className="App">
+           <Routes>
+              {publicRoutes.map((router, index) => {
+                const Page = router.component;
+                let Layout = DefaultLayout;
+                if (router.layout) {
+                  Layout = router.layout; 
+                } else if( router.layout === null) {
+                  Layout = Fragment
+                }
+                return <Route key={index} path={router.path} element={<Layout> <Page /> </Layout>} />
+              })}
+           </Routes>
+        </div>
+      </Router>
+   );
 }
 
 export default App;
-
-
-

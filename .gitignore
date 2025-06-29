@@ -10,6 +10,7 @@
 
 # production
 /build
+# /.vscode neu muon khong day file nay len git  
 
 # misc
 .DS_Store
